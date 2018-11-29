@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">eShopping</string>
+    <string name="e_shopping">eShopping</string>
+    <string name="create_account">Create Account</string>
+    <string name="or">Or</string>
+    <string name="log_in">Log In</string>
+    <string name="sign_in">Sign In</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="welcome">Welcome</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="id">Id</string>
+    <string name="phone">Phone</string>
+
+    <string name="email_validation_message">Please enter your email address in the format someone@example.com.</string>
+    <string name="authentication_failed">Authentication Failed.</string>
+    <string name="password_validation_message">Please enter 6 or more characters with a mix of letters and numbers.</string>
+    <string name="please_enter_password">Please enter password.</string>
+    <string name="please_enter_email">Please enter email.</string>
+    <string name="wrong_password">Wrong Password.</string>
+    <string name="email_already_exists">Email already exists.</string>
+    <string name="email_not_found">Email not found, you can create new account.</string>
+    <string name="email_in_use">This email is already associated with a different user account.</string>
+    <string name="user_not_found">This email is NOT exists.</string>
+
+    <string name="facebook_app_id">337445886809737</string>
+    <string name="fb_login_protocol_scheme">fb337445886809737</string>
+
+</resources>
