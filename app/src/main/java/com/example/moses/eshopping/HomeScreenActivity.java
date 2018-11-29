@@ -9,6 +9,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class HomeScreenActivity extends AppCompatActivity {
     public static final String TAG = "$HomeScreenActivity$";
     FirebaseAuth mAuth;
@@ -62,7 +66,7 @@ public class HomeScreenActivity extends AppCompatActivity {
 
     public void SetSignOutOnClick(View v){
         mAuth.signOut();
-        Intent intent = new Intent(this, LoginActivity.class);
+        Intent intent = new Intent(this, LogInActivity.class);
         startActivity(intent);
         finish();
     }
