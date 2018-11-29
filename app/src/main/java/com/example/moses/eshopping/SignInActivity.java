@@ -9,7 +9,11 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -22,7 +26,7 @@ public class SignInActivity extends AppCompatActivity {
     public static final String TAG = "$SignInActivity$";
     private static final int RC_SIGN_IN = 1001;
     private FirebaseAuth mAuth;
-    //private GoogleSignInClient mGoogleSignInClient;
+    private GoogleSignInClient mGoogleSignInClient;
     TextView m_Email;
     TextView m_Password;
 
@@ -41,11 +45,10 @@ public class SignInActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         m_Email = findViewById(R.id.emailEditText);
         m_Password = findViewById(R.id.passwordEditText);
-        //m_GoogleSignIn = findViewById(R.id.googleSignInButton);
-        //googleSigninInit();
+        googleSigninInit();
         Log.e(TAG,"initViews() <<");
     }
-/*
+
     private void googleSigninInit() {
         Log.e(TAG, "googleSigninInit() >>" );
         GoogleSignInOptions gso = new GoogleSignInOptions
@@ -83,11 +86,6 @@ public class SignInActivity extends AppCompatActivity {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
         }
-        else{
-            Log.e(TAG,"!!!!else!!!!");
-            mCallbackManager.onActivityResult(requestCode, resultCode, data);
-        }
-
         Log.e(TAG,"onActivityResult() <<");
     }
 
@@ -105,7 +103,7 @@ public class SignInActivity extends AppCompatActivity {
         }
         Log.e(TAG,"handleSignInResult() <<");
     }
-*/
+
     public void SetSignInOnClick(View v){
         Log.e(TAG,"SetSignInOnClick() >>");
         String email = m_Email.getText().toString();
