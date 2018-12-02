@@ -16,11 +16,11 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class HomeScreenActivity extends AppCompatActivity {
     public static final String TAG = "$HomeScreenActivity$";
-    FirebaseAuth mAuth;
+    private FirebaseAuth mAuth;
 
-    ImageView m_Avatar;
-    Button m_SignOut;
-    TextView m_Info;
+    private ImageView m_Avatar;
+    private Button m_SignOut;
+    private TextView m_Info;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,17 +51,20 @@ public class HomeScreenActivity extends AppCompatActivity {
 
     private void updateUI(FirebaseUser i_CurrUser){
         Log.e(TAG,"updateUI() >>");
-        String info = i_CurrUser.isAnonymous() ? "SIGNED OUT\n" : "SIGNED IN\n";
-        info += i_CurrUser.getEmail() == null ? "" : (i_CurrUser.getEmail() + "\n");
-        info += i_CurrUser.getDisplayName() == null ? "" : (i_CurrUser.getDisplayName() + "\n");
-        info += i_CurrUser.getPhoneNumber() == null ? "" : (i_CurrUser.getPhoneNumber() + "\n");
-        info += i_CurrUser.getUid() == null ? "" : (i_CurrUser.getUid() + "\n");
-        m_Info.setText(info);
-        if (i_CurrUser.getPhotoUrl() != null){
-            Glide.with(this)
-                    .load(i_CurrUser.getPhotoUrl().toString())
-                    .into(m_Avatar);
+        String info = "SIGNED OUT\n";
+        if (i_CurrUser != null){
+            info = "SIGNED IN\n";
+            info += i_CurrUser.getEmail() == null ? "" : (i_CurrUser.getEmail() + "\n");
+            info += i_CurrUser.getDisplayName() == null ? "" : (i_CurrUser.getDisplayName() + "\n");
+            info += i_CurrUser.getPhoneNumber() == null ? "" : (i_CurrUser.getPhoneNumber() + "\n");
+            info += i_CurrUser.getUid() == null ? "" : (i_CurrUser.getUid() + "\n");
+            if (i_CurrUser.getPhotoUrl() != null){
+                Glide.with(this)
+                        .load(i_CurrUser.getPhotoUrl().toString())
+                        .into(m_Avatar);
+            }
         }
+        m_Info.setText(info);
         Log.e(TAG,"updateUI() <<");
     }
 

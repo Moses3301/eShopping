@@ -22,9 +22,9 @@ public class CreateAccountActivity extends AppCompatActivity {
     public static final String TAG = "$CreateAccountActivity$";
     private FirebaseAuth mAuth;
 
-    TextView m_Email;
-    TextView m_Password;
-    Button m_CreateAccount;
+    private TextView m_Email;
+    private TextView m_Password;
+    private Button m_CreateAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

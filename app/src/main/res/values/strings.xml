@@ -35,5 +35,6 @@
     <string name="click_reset_password">Click reset password</string>
     <string name="click_to_get_email">Click to get  confirmation email</string>
     <string name="done_reset">Ready to sign in agian</string>
+    <string name="as_a_gust">Sign in as a gust</string>
 
 </resources>

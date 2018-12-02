@@ -60,5 +60,16 @@
         android:layout_height="wrap_content"
         android:onClick="SetSignInOnClick"
         android:text="@string/sign_in"
-        android:textColor="@color/colorPrimary" />
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/asAGustButton"
+        style="@android:style/Widget.Material.Light.Button.Borderless"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="SetAsAGustOnClick"
+        android:text="@string/as_a_gust"
+        android:textColor="@color/colorPrimary"
+        android:visibility="gone"/>
 </LinearLayout>
