@@ -22,7 +22,6 @@ public class CreateAccountActivity extends AppCompatActivity {
     public static final String TAG = "$CreateAccountActivity$";
     private FirebaseAuth mAuth;
 
-    TextView m_Name;
     TextView m_Email;
     TextView m_Password;
     Button m_CreateAccount;
@@ -38,7 +37,6 @@ public class CreateAccountActivity extends AppCompatActivity {
 
     private void initViews() {
         Log.e(TAG, "initViews() >>");
-        m_Name = findViewById(R.id.nameEditText);
         m_Email = findViewById(R.id.emailEditText);
         m_Password = findViewById(R.id.passwordEditText);
         m_CreateAccount = findViewById(R.id.createAccountButton);

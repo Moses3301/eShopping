@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +30,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
@@ -54,6 +56,7 @@ public class SignInActivity extends AppCompatActivity {
 
     TextView m_Email;
     TextView m_Password;
+    Button m_resetPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +77,7 @@ public class SignInActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         m_Email = findViewById(R.id.emailEditText);
         m_Password = findViewById(R.id.passwordEditText);
+        m_resetPassword = findViewById(R.id.forgotPasswordButton);
         googleSigninInit();
         faceBookInit();
         Log.e(TAG,"initViews() <<");
@@ -190,7 +194,7 @@ public class SignInActivity extends AppCompatActivity {
             Toast.makeText(SignInActivity.this, R.string.please_enter_email,
                     Toast.LENGTH_SHORT).show();
         }
-        if (m_Password.getText().toString().isEmpty()){
+        else if (m_Password.getText().toString().isEmpty()){
             Toast.makeText(SignInActivity.this, R.string.please_enter_password,
                     Toast.LENGTH_SHORT).show();
         }
@@ -232,6 +236,7 @@ public class SignInActivity extends AppCompatActivity {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -257,16 +262,25 @@ public class SignInActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.e(TAG, "Facebook: onComplete() >> " + task.isSuccessful());
-
-                        FirebaseUser user = mAuth.getCurrentUser();
-                        Log.e(TAG, "log in user: "+user.getDisplayName());
-                        finish();
-                        Log.e(TAG, "Facebook: onComplete() <<");
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.e(TAG, "signInWithCredential:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            finish();
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.e(TAG, "signInWithCredential:failure", task.getException());
+                            Toast.makeText(SignInActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
 
         Log.e(TAG, "handleFacebookAccessToken () <<");
     }
 
+    public void SetResetPasswordOnClick(View v){
+        Intent intent = new Intent(this,ResetPasswordActivity.class);
+        startActivity(intent);
+    }
 }

@@ -26,5 +26,14 @@
 
     <string name="facebook_app_id">355090978582760</string>
     <string name="fb_login_protocol_scheme">fb355090978582760</string>
+    <string name="forgot_email">Forgot email?</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="reset_pass_step_one">Open the confirmation email.</string>
+    <string name="reset_pass_step_two">Change your password.</string>
+    <string name="reset_pass_three">Sign In with the new password.</string>
+    <string name="click_reset_password">Click reset password</string>
+    <string name="click_to_get_email">Click to get  confirmation email</string>
+    <string name="done_reset">Ready to sign in agian</string>
 
 </resources>

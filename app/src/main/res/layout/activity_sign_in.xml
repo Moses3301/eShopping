@@ -36,6 +36,17 @@
         android:inputType="textPassword" />
 
     <Button
+        android:id="@+id/forgotPasswordButton"
+        style="@android:style/Widget.Material.Light.Button.Borderless"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="SetResetPasswordOnClick"
+        android:text="@string/forgot_password"
+        android:textAlignment="viewStart"
+        android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+        android:textSize="14sp" />
+
+    <Button
         android:id="@+id/singInButton"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
