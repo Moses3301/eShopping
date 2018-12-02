@@ -24,7 +24,7 @@
     <string name="email_in_use">This email is already associated with a different user account.</string>
     <string name="user_not_found">This email is NOT exists.</string>
 
-    <string name="facebook_app_id">337445886809737</string>
-    <string name="fb_login_protocol_scheme">fb337445886809737</string>
+    <string name="facebook_app_id">355090978582760</string>
+    <string name="fb_login_protocol_scheme">fb355090978582760</string>
 
 </resources>
