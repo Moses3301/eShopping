@@ -13,14 +13,17 @@ import com.bumptech.glide.Glide;
 import com.facebook.AccessToken;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class HomeScreenActivity extends AppCompatActivity {
     public static final String TAG = "$HomeScreenActivity$";
     private FirebaseAuth mAuth;
-
-    private ImageView m_Avatar;
-    private Button m_SignOut;
-    private TextView m_Info;
+    FirebaseDatabase database;
+    DatabaseReference songsRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +31,6 @@ public class HomeScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
         initView();
-        Log.e(TAG,"onCreate() <<");
     }
     @Override
     public void onStart() {
@@ -43,36 +45,37 @@ public class HomeScreenActivity extends AppCompatActivity {
     private void initView(){
         Log.e(TAG,"initView() >>");
         mAuth = FirebaseAuth.getInstance();
-        m_Avatar = findViewById(R.id.avatarImageView);
-        m_SignOut = findViewById(R.id.signOutButton);
-        m_Info = findViewById(R.id.infoTextView);
+        database = FirebaseDatabase.getInstance();
+
+        songsRef = database.getReference("songs");
+        songsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                //String value = dataSnapshot.getValue(String.class);
+                Log.e(TAG, "Value is: " + dataSnapshot.toString());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.e(TAG, "Failed to read value.", error.toException());
+            }
+        });
+
         Log.e(TAG,"initView() <<");
     }
 
     private void updateUI(FirebaseUser i_CurrUser){
         Log.e(TAG,"updateUI() >>");
-        String info = "SIGNED OUT\n";
-        if (i_CurrUser != null){
-            info = "SIGNED IN\n";
-            info += i_CurrUser.getEmail() == null ? "" : (i_CurrUser.getEmail() + "\n");
-            info += i_CurrUser.getDisplayName() == null ? "" : (i_CurrUser.getDisplayName() + "\n");
-            info += i_CurrUser.getPhoneNumber() == null ? "" : (i_CurrUser.getPhoneNumber() + "\n");
-            info += i_CurrUser.getUid() == null ? "" : (i_CurrUser.getUid() + "\n");
-            if (i_CurrUser.getPhotoUrl() != null){
-                Glide.with(this)
-                        .load(i_CurrUser.getPhotoUrl().toString())
-                        .into(m_Avatar);
-            }
-        }
-        m_Info.setText(info);
+
         Log.e(TAG,"updateUI() <<");
     }
 
     public void SetSignOutOnClick(View v){
-        mAuth.signOut();
-        AccessToken.setCurrentAccessToken(null);
-        Intent intent = new Intent(this, LogInActivity.class);
-        startActivity(intent);
-        finish();
+        Song creep = new Song("Creep","Pablo Honey","gs://eshopping-fe847.appspot.com/Radiohead - Creep.mp3","Radiohead",1.99,"gs://eshopping-fe847.appspot.com/Radiohead - Creep.mp4");
+        songsRef.push().setValue(creep);
+        Log.e(TAG,"SetSignOutOnClick() <<");
     }
 }
