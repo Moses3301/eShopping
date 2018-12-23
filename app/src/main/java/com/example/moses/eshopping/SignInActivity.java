@@ -34,10 +34,16 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class SignInActivity extends AppCompatActivity {
     public static final String TAG = "$SignInActivity$";
+    public static final String EXTRA_USER = "com.example.moses.eshopping.SignInActivity.USER";
     private static final int RC_SIGN_IN = 1001;
     private FirebaseAuth mAuth;
 
@@ -49,6 +55,36 @@ public class SignInActivity extends AppCompatActivity {
     private TextView m_Email;
     private TextView m_Password;
     private Button m_resetPassword;
+    private User mUser;
+
+    @Override
+    public void onStart() {
+        Log.e(TAG,"onStart() >>");
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        Log.e(TAG,"UserLogin: " + currentUser);
+        if ( currentUser != null){
+            String userId = currentUser.getUid();
+            DatabaseReference myUserRef = FirebaseDatabase.getInstance().getReference("Users/" + userId);
+            myUserRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    Log.e(TAG, "onDataChange(User) >> " + snapshot.getKey());
+                    mUser = snapshot.getValue(User.class);
+                    if (mUser==null){
+                        Log.e(TAG,"USER IS NULL!!@!" );
+                        mUser = new User(snapshot.getKey(), null);}
+                    Log.e(TAG, "onDataChange(User) <<");
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.e(TAG, "onCancelled(Users) >>" + databaseError.getMessage());
+                }
+            });
+        }
+        Log.e(TAG,"onStart() <<");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -236,7 +272,6 @@ public class SignInActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.e(TAG, "signInWithCredential:success");
-                            finish();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.e(TAG, "signInWithCredential:failure", task.getException());
@@ -258,7 +293,6 @@ public class SignInActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.e(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            finish();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.e(TAG, "signInWithCredential:failure", task.getException());
@@ -271,8 +305,28 @@ public class SignInActivity extends AppCompatActivity {
         Log.e(TAG, "handleFacebookAccessToken () <<");
     }
 
+    public void SetCreateAccountOnClick(View v){
+        Log.e(TAG,"SetCreateAccountOnClick() >>");
+        Intent intent = new Intent(this,CreateAccountActivity.class);
+        startActivity(intent);
+        mUser = new User(mAuth.getUid(),null);
+        Log.e(TAG,"SetCreateAccountOnClick() <<");
+    }
+
     public void SetResetPasswordOnClick(View v){
         Intent intent = new Intent(this,ResetPasswordActivity.class);
         startActivity(intent);
+    }
+
+    private void updateUI(){
+        Intent intent = new Intent(this,HomeScreenActivity.class);
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users").child(mAuth.getUid());
+        mUser = userRef..getValue(User.class);
+        if (mUser==null){
+            Log.e(TAG,"USER IS NULL!!@!" );
+            mUser = new User(snapshot.getKey(), null);
+        }
+        startActivity(intent);
+        finish();
     }
 }

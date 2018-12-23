@@ -36,5 +36,9 @@
     <string name="click_to_get_email">Click to get  confirmation email</string>
     <string name="done_reset">Ready to sign in agian</string>
     <string name="as_a_gust">Sign in as a gust</string>
+    <string name="by">by</string>
+    <string name="play">Play</string>
+    <string name="clip">Clip</string>
+    <string name="sign_up">Sign Up</string>
 
 </resources>

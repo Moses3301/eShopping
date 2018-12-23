@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "242054244806-lqfk6bkbjvp4ggihsup58bmlj0nq9suh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.moses.eshopping",
+            "certificate_hash": "886ba03b3aac93133e375d8bd336eb0965c4ad54"
+          }
+        },
+        {
           "client_id": "242054244806-667nm1lvu3ps82jknkbmbgkf74eohrli.apps.googleusercontent.com",
           "client_type": 3
         }

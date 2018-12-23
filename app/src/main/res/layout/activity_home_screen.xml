@@ -21,6 +21,14 @@
         android:hint="@android:string/search_go"
         android:inputType="textPersonName" />
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/songs_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"></android.support.v7.widget.RecyclerView>
+
+
     <Button
         android:id="@+id/signOutButton"
         style="@android:style/Widget.DeviceDefault.Button"

@@ -1,45 +1,89 @@
 package com.example.moses.eshopping;
 
-public class Song {
-    private String m_Name;
-    private String m_Album;
-    private String m_File;
-    private String m_Artist;
-    private Double m_Price;
-    private String m_Clip;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
+public class Song implements Parcelable  {
+    public static final String TAG = "$Song$";
+
+    private String name;
+    private String album;
+    private String thumbImage;
+    private String file;
+    private String artist;
+    private Double price;
+    private String clip;
+    private String genre;
 
     //Getters
     public String getFile() {
-        return m_File;
+        return file;
     }
     public String getName() {
-        return m_Name;
+        return name;
     }
-
-    public Song(String name, String album, String file, String artist, Double price, String clip) {
-        this.m_Name = name;
-        this.m_Album = album;
-        this.m_File = file;
-        this.m_Artist = artist;
-        this.m_Price = price;
-        this.m_Clip = clip;
-    }
-
     public String getAlbum() {
-        return m_Album;
+        return album;
+    }
+    public void setAlbum(String newName) {
+         album = newName;
     }
     public String getArtist() {
-        return m_Artist;
+        return artist;
     }
     public Double getPrice() {
-        return m_Price;
+        return price;
     }
     public String getClip() {
-        return m_Clip;
+        return clip;
     }
+    public String getGenre() { return genre; }
+    public String getThumbImage() { return thumbImage; }
     //End Getters
 
     public Song() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(album);
+        dest.writeString(thumbImage);
+        dest.writeString(file);
+        dest.writeString(artist);
+        dest.writeString(clip);
+        dest.writeString(genre);
+        dest.writeDouble(price);
+    }
+
+    public Song(Parcel in) {
+        this.name = in.readString();
+        this.album = in.readString();
+        this.thumbImage = in.readString();
+        this.file = in.readString();
+        this.artist = in.readString();
+        this.clip = in.readString();
+        this.genre = in.readString();
+        this.price = in.readDouble();
+    }
+
+    public static final Parcelable.Creator<Song> CREATOR = new Parcelable.Creator<Song>() {
+        @Override
+        public Song createFromParcel(Parcel source) {
+            return new Song(source);
+        }
+
+        @Override
+        public Song[] newArray(int size) {
+            return new Song[size];
+        }
+    };
 }

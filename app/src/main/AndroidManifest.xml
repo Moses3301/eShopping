@@ -13,11 +13,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".SplashScreenActivity"
-            android:theme="@style/OpeningAppTheme">
-
-
-
-        </activity>
+            android:theme="@style/OpeningAppTheme"></activity>
         <activity
             android:name=".CreateAccountActivity"
             android:label="Create Account"
@@ -26,28 +22,25 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".LogInActivity" />
         </activity>
+        <activity android:name=".SignInActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        <activity android:name=".HomeScreenActivity">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-
         <activity
-            android:name=".SignInActivity"
-            android:label="Sign In"
-            android:parentActivityName=".LogInActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".LogInActivity" />
+            android:name=".HomeScreenActivity"
+            android:label="Sign In">
         </activity>
         <activity
             android:name=".LogInActivity"
             android:theme="@style/OpeningAppTheme" />
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
+
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
@@ -70,7 +63,9 @@
             android:parentActivityName=".SignInActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".SignInActivity" /></activity>
+                android:value=".SignInActivity" />
+        </activity>
+        <activity android:name=".PlayerActivity"></activity>
     </application>
 
 </manifest>
